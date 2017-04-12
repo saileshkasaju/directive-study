@@ -38,6 +38,7 @@ angular.module('app').controller('mainCtrl', function($scope) {
     $scope.clickHandler = function(p) {
         p.message = 'I have been clicked';
     };
+    $scope.size = 150;
 });
 
 angular.module('app').directive('userInfoCard', function() {
@@ -169,3 +170,13 @@ angular.module('app').directive('userClickSelect', function() {
        }
    }
 });
+
+angular.module('app').directive('fontScale', function() {
+    return {
+        link: function(scope, el, attrs) {
+            scope.$watch(attrs['fontScale'], function(newVal) {
+                el.css('font-size', newVal + '%');
+            })
+        }
+    }
+})
