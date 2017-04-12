@@ -155,11 +155,17 @@ angular.module('app').directive('userTile', function() {
         scope: {
             user: '='
         },
-        templateUrl: 'userTile.html',
-        controller: function($scope) {
-            $scope.select = function() {
-                $scope.user.selected = !$scope.user.selected;
-            }
-        }
+        templateUrl: 'userTile.html'
     }
+});
+
+angular.module('app').directive('userClickSelect', function() {
+   return {
+       link: function(scope, el, attrs) {
+           el.on('click', function() {
+               scope.user.selected = !scope.user.selected;
+               scope.$apply();
+           })
+       }
+   }
 });
