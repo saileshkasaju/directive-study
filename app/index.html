@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-controller="mainCtrl" class="container" style="padding-top: 30px" my-click="clickHandler(data)">
+<user-tile user="user1">
+
+</user-tile>
+
 <h2>{{data.message}}</h2>
 <user-info-card person="user1" collapsed="true"></user-info-card>
 <user-info-card person="user2"></user-info-card>
