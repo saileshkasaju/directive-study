@@ -6,7 +6,7 @@
         <ul>
             <li ng-repeat='friend in user.friends'>
                 {{friend}}
-                <remove-friend></remove-friend>
+                <remove-friend method="removeFriend(friend)"></remove-friend>
             </li>
         </ul>
         <div ng-show="!!user.rank">

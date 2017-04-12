@@ -45,6 +45,12 @@ angular.module('app').directive('userInfoCard', function() {
             $scope.collapse = function() {
                 $scope.collapsed = !$scope.collapsed;
             };
+            $scope.removeFriend = function(friend) {
+                var idx = $scope.user.friends.indexOf(friend);
+                if(idx > -1) {
+                    $scope.user.friends.splice(idx, 1);
+                }
+            }
         }
     }
 });
@@ -53,6 +59,9 @@ angular.module('app').directive('removeFriend', function() {
     return {
         restrict: "E",
         templateUrl: "removeFriend.html",
+        scope: {
+            notifyParent: '&method'
+        },
         controller: function($scope) {
             $scope.removing = false;
             $scope.startRemove = function() {
@@ -61,11 +70,8 @@ angular.module('app').directive('removeFriend', function() {
             $scope.cancelRemove = function() {
                 $scope.removing = false;
             };
-            $scope.removeFriend = function(friend) {
-                var idx = $scope.user.friends.indexOf(friend);
-                if(idx > -1) {
-                    $scope.user.friends.splice(idx, 1);
-                }
+            $scope.confirmRemove = function() {
+                $scope.notifyParent();
             }
         }
     }
