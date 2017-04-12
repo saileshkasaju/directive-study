@@ -42,7 +42,26 @@ angular.module('app').controller('mainCtrl', function($scope) {
     };
     $scope.size = 150;
 });
-
+angular.module('app').directive('stateDisplay', function() {
+    return {
+        restrict: "A",
+        link: function(scope, el, attrs) {
+            scope.$watch(attrs['stateDisplay'], function(newVal) {
+                switch(newVal) {
+                    case 0:
+                        el.css('background-color', 'white');
+                        break;
+                    case 1:
+                        el.css('background-color', 'yellow');
+                        break;
+                    case 2:
+                        el.css('background-color', 'red');
+                        break;
+                }
+            });
+        }
+    }
+});
 angular.module('app').directive('userInfoCard', function() {
     return {
         templateUrl: "userInfoCard.html",
@@ -51,30 +70,12 @@ angular.module('app').directive('userInfoCard', function() {
             user: '=person',
             initialCollapsed: '@collapsed'
         },
-        link: function(scope, el, attrs) {
-            scope.nextState = function() {
-                scope.user.level++;
-                scope.user.level = scope.user.level % 3;
-                setState();
-            };
-            function setState() {
-                switch(scope.user.level) {
-                    case 0:
-                        el.find('.panel-body').css('background-color', 'white');
-                        break;
-                    case 1:
-                        el.find('.panel-body').css('background-color', 'yellow');
-                        break;
-                    case 2:
-                        el.find('.panel-body').css('background-color', 'red');
-                        break;
-                }
-            }
-            setState();
-
-        },
         controller: function($scope) {
             $scope.collapsed = ($scope.initialCollapsed === 'true');
+            $scope.nextState = function() {
+                $scope.user.level++;
+                $scope.user.level = $scope.user.level % 3;
+            };
             $scope.knightMe = function(user) {
                 user.rank = "knight";
             };
