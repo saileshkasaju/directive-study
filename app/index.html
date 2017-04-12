@@ -12,6 +12,14 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-controller="mainCtrl" class="container" style="padding-top: 30px" my-click="clickHandler(data)">
+<display-box>
+  <div>This is content inside</div>
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+  </ul>
+  <div>{{message}}</div>
+</display-box>
 <div>I'm not scaled</div>
 <div font-scale="size">I'm some text</div>
 <input ng-model="size"/>

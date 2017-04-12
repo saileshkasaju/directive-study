@@ -41,6 +41,7 @@ angular.module('app').controller('mainCtrl', function($scope) {
         p.message = 'I have been clicked';
     };
     $scope.size = 150;
+    $scope.message = "This is a message";
 });
 angular.module('app').directive('stateDisplay', function() {
     return {
@@ -198,4 +199,18 @@ angular.module('app').directive('fontScale', function() {
             })
         }
     }
-})
+});
+
+angular.module('app').directive('displayBox', function() {
+    return {
+        restrict: "E",
+        templateUrl: 'displayBox.html',
+        controller: function($scope) {
+            $scope.hidden = false;
+            $scope.close = function() {
+                $scope.hidden = true;
+            }
+        },
+        transclude: true
+    }
+});
