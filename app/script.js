@@ -42,6 +42,7 @@ angular.module('app').controller('mainCtrl', function($scope) {
     };
     $scope.size = 150;
     $scope.message = "This is a message";
+    console.log('controller', $scope);
 });
 angular.module('app').directive('stateDisplay', function() {
     return {
@@ -200,7 +201,9 @@ angular.module('app').directive('fontScale', function() {
         }
     }
 });
-
+angular.module('app').controller('innerCtrl', function($scope) {
+    console.log('inner controller', $scope);
+});
 angular.module('app').directive('displayBox', function() {
     return {
         restrict: "E",
@@ -209,8 +212,13 @@ angular.module('app').directive('displayBox', function() {
             $scope.hidden = false;
             $scope.close = function() {
                 $scope.hidden = true;
-            }
+            };
+            $scope.message = "I'm hijacking you";
+            console.log('directive', $scope);
         },
-        transclude: true
+        transclude: true,
+        scope: true
     }
 });
+
+
