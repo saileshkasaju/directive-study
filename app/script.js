@@ -13,7 +13,8 @@ angular.module('app').controller('mainCtrl', function($scope) {
             'Han',
             'Liea',
             'Chewbecca'
-        ]
+        ],
+        level: 0
     };
     $scope.user2 = {
         name: "Hans Solo",
@@ -26,7 +27,8 @@ angular.module('app').controller('mainCtrl', function($scope) {
             'Han',
             'Liea',
             'Chewbecca'
-        ]
+        ],
+        level: 1
     };
     $scope.messages = [];
     $scope.handlePause = function(e) {
@@ -48,6 +50,28 @@ angular.module('app').directive('userInfoCard', function() {
         scope: {
             user: '=person',
             initialCollapsed: '@collapsed'
+        },
+        link: function(scope, el, attrs) {
+            scope.nextState = function() {
+                scope.user.level++;
+                scope.user.level = scope.user.level % 3;
+                setState();
+            };
+            function setState() {
+                switch(scope.user.level) {
+                    case 0:
+                        el.find('.panel-body').css('background-color', 'white');
+                        break;
+                    case 1:
+                        el.find('.panel-body').css('background-color', 'yellow');
+                        break;
+                    case 2:
+                        el.find('.panel-body').css('background-color', 'red');
+                        break;
+                }
+            }
+            setState();
+
         },
         controller: function($scope) {
             $scope.collapsed = ($scope.initialCollapsed === 'true');
