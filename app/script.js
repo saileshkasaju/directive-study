@@ -72,6 +72,7 @@ angular.module('app').directive('removeFriend', function() {
             };
             $scope.confirmRemove = function() {
                 $scope.notifyParent();
+                //$scope.notifyParent({friend: 'Han'}); // this will override the parameter passed and always remove Han
             }
         }
     }
