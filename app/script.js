@@ -42,13 +42,34 @@ angular.module('app').directive('userInfoCard', function() {
             $scope.knightMe = function(user) {
                 user.rank = "knight";
             };
-            $scope.collapse = function () {
+            $scope.collapse = function() {
                 $scope.collapsed = !$scope.collapsed;
-            }
+            };
         }
     }
 });
 
+angular.module('app').directive('removeFriend', function() {
+    return {
+        restrict: "E",
+        templateUrl: "removeFriend.html",
+        controller: function($scope) {
+            $scope.removing = false;
+            $scope.startRemove = function() {
+                $scope.removing = true;
+            };
+            $scope.cancelRemove = function() {
+                $scope.removing = false;
+            };
+            $scope.removeFriend = function(friend) {
+                var idx = $scope.user.friends.indexOf(friend);
+                if(idx > -1) {
+                    $scope.user.friends.splice(idx, 1);
+                }
+            }
+        }
+    }
+});
 angular.module('app').directive('address', function() {
     return {
         restrict: "E",
