@@ -32,7 +32,11 @@ angular.module('app').controller('mainCtrl', function($scope) {
         console.log(e);
         $scope.messages.push({text: 'paused!'});
         console.log('paused!');
-    }
+    };
+    $scope.data = {message: 'I have not been clicked'};
+    $scope.clickHandler = function(p) {
+        p.message = 'I have been clicked';
+    };
 });
 
 angular.module('app').directive('userInfoCard', function() {
@@ -129,5 +133,17 @@ angular.module('app').directive('eventPause', function($parse) {
                 });
             });
         }
-    }
+    };
+});
+angular.module('app').directive('myClick', function($parse) {
+   return {
+       link: function(scope, el, attrs) {
+           var fn = $parse(attrs['myClick']);
+           el.on('click', function() {
+               scope.$apply(function() {
+                   fn(scope);
+               });
+           });
+       }
+   };
 });

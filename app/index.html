@@ -11,7 +11,8 @@
   <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="app.css">
 </head>
-<body ng-controller="mainCtrl" class="container" style="padding-top: 30px">
+<body ng-controller="mainCtrl" class="container" style="padding-top: 30px" my-click="clickHandler(data)">
+<h2>{{data.message}}</h2>
 <user-info-card person="user1" collapsed="true"></user-info-card>
 <user-info-card person="user2"></user-info-card>
 
