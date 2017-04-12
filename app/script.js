@@ -48,9 +48,10 @@ angular.module('app').directive('stateDisplay', function() {
         link: function(scope, el, attrs) {
             var parms = attrs['stateDisplay'].split(' ');
             var linkVar = parms[0];
-
+            var classes = parms.slice(1);
             scope.$watch(linkVar, function(newVal) {
-                el.css('background-color', parms[newVal + 1]);
+                el.removeClass(classes.join(' '));
+                el.addClass(classes[newVal]);
             });
         }
     }
