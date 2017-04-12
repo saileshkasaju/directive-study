@@ -27,8 +27,11 @@ angular.module('app').controller('mainCtrl', function($scope) {
             'Chewbecca'
         ]
     };
-    $scope.handlePause = function() {
-        console.log('the video was paused');
+    $scope.messages = [];
+    $scope.handlePause = function(e) {
+        console.log(e);
+        $scope.messages.push({text: 'paused!'});
+        console.log('paused!');
     }
 });
 
@@ -115,18 +118,16 @@ angular.module('app').directive('spacebarSupport', function() {
     }
 });
 
-angular.module('app').directive('eventPause', function() {
+angular.module('app').directive('eventPause', function($parse) {
     return {
         restrict: "A",
-        scope: {
-            eventPause: '&'
-        },
         link: function(scope, el, attrs) {
             el.on('pause', function(event) {
+                var fn = $parse(attrs['eventPause']);
                 scope.$apply(function() {
-                    scope.eventPause();
-                })
-            })
+                    fn(scope, {evt: event});
+                });
+            });
         }
     }
 });
