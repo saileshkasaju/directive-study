@@ -1,7 +1,7 @@
 angular.module('app', []);
 
 angular.module('app').controller('mainCtrl', function($scope) {
-    $scope.user1 = {
+    $scope.person1 = {
         name: "Luke Skywalker",
         selected: false,
         address: {
@@ -16,7 +16,7 @@ angular.module('app').controller('mainCtrl', function($scope) {
         ],
         level: 0
     };
-    $scope.user2 = {
+    $scope.person2 = {
         name: "Hans Solo",
         address: {
             street: 'P O Box 234',
@@ -44,6 +44,18 @@ angular.module('app').controller('mainCtrl', function($scope) {
     $scope.message = "This is a message";
     console.log('controller', $scope);
     $scope.answers = { baseLocation: "Yavin 4" };
+
+    $scope.droid1 = {
+        name: 'R2-D2',
+        specifications: {
+            manufacturer: 'Industrial Automation',
+            type: 'Astromech',
+            productLine: 'R2 series'
+        },
+        level: 1
+        // owners... etc
+    };
+
 });
 angular.module('app').directive('stateDisplay', function() {
     return {
@@ -59,30 +71,52 @@ angular.module('app').directive('stateDisplay', function() {
         }
     }
 });
-angular.module('app').directive('userInfoCard', function() {
+angular.module('app').directive('droidInfoCard', function() {
     return {
-        templateUrl: "userInfoCard.html",
+        templateUrl: "droidInfoCard.html",
         restrict: "E",
         scope: {
-            user: '=person',
+            droid: '=',
             initialCollapsed: '@collapsed'
         },
         controller: function($scope) {
             $scope.collapsed = ($scope.initialCollapsed === 'true');
             $scope.nextState = function() {
-                $scope.user.level++;
-                $scope.user.level = $scope.user.level % 4;
+                $scope.droid.level++;
+                $scope.droid.level = $scope.droid.level % 4;
             };
-            $scope.knightMe = function(user) {
-                user.rank = "knight";
+            $scope.collapse = function() {
+                $scope.collapsed = !$scope.collapsed;
+            };
+        }
+    }
+});
+
+
+angular.module('app').directive('personInfoCard', function() {
+    return {
+        templateUrl: "personInfoCard.html",
+        restrict: "E",
+        scope: {
+            person: '=person',
+            initialCollapsed: '@collapsed'
+        },
+        controller: function($scope) {
+            $scope.collapsed = ($scope.initialCollapsed === 'true');
+            $scope.nextState = function() {
+                $scope.person.level++;
+                $scope.person.level = $scope.person.level % 4;
+            };
+            $scope.knightMe = function(person) {
+                person.rank = "knight";
             };
             $scope.collapse = function() {
                 $scope.collapsed = !$scope.collapsed;
             };
             $scope.removeFriend = function(friend) {
-                var idx = $scope.user.friends.indexOf(friend);
+                var idx = $scope.person.friends.indexOf(friend);
                 if(idx > -1) {
-                    $scope.user.friends.splice(idx, 1);
+                    $scope.person.friends.splice(idx, 1);
                 }
             }
         }
@@ -186,7 +220,7 @@ angular.module('app').directive('userClickSelect', function() {
    return {
        link: function(scope, el, attrs) {
            el.on('click', function() {
-               scope.user.selected = !scope.user.selected;
+               scope.person.selected = !scope.person.selected;
                scope.$apply();
            })
        }
