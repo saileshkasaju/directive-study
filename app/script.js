@@ -43,6 +43,7 @@ angular.module('app').controller('mainCtrl', function($scope) {
     $scope.size = 150;
     $scope.message = "This is a message";
     console.log('controller', $scope);
+    $scope.answers = { baseLocation: "Yavin 4" };
 });
 angular.module('app').directive('stateDisplay', function() {
     return {
@@ -221,4 +222,13 @@ angular.module('app').directive('displayBox', function() {
     }
 });
 
-
+angular.module('app').directive('myQuestion', function () {
+    return {
+        restrict: 'E',
+        transclude: true,
+        templateUrl: 'myQuestion.html',
+        scope: {
+            questionText: '@q'
+        }
+    };
+});

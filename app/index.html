@@ -12,6 +12,18 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-controller="mainCtrl" class="container" style="padding-top: 30px" my-click="clickHandler(data)">
+<h1>Questions</h1>
+<my-question q="Where is the rebel base?">
+  <input type="text" ng-model="answers.baseLocation" />
+</my-question>
+<my-question q="Are you my brother?">
+  <input type="radio" ng-value="true" ng-model="answers.brother" >Yes</input>
+  <input type="radio" ng-value="false" ng-model="answers.brother" >No</input>
+</my-question>
+<my-question q="Are you the droids i'm looking for?">
+  <button class="btn btn-lg btn-primary" ng-click="">No</button>
+  <button class="btn btn-xs btn default" ng-click="">Yes</button>
+</my-question>
 <display-box>
   <div ng-controller="innerCtrl">
     <div>This is content inside</div>
