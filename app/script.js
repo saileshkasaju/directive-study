@@ -71,6 +71,32 @@ angular.module('app').directive('stateDisplay', function() {
         }
     }
 });
+
+angular.module('app').directive('userPanel', function() {
+   return {
+       restrict: 'E',
+       transclude: true,
+       templateUrl: 'userPanel.html',
+       scope: {
+           name: '@',
+           level: '=',
+           initialCollapsed: '@collapsed'
+       },
+       controller: function($scope) {
+           $scope.collapsed = ($scope.initialCollapsed === 'true');
+           $scope.nextState = function(evt) {
+               evt.stopPropagation();
+               evt.preventDefault();
+               $scope.level++;
+               $scope.level = $scope.level % 4;
+           };
+           $scope.collapse = function() {
+               $scope.collapsed = !$scope.collapsed;
+           };
+       }
+   }
+});
+
 angular.module('app').directive('droidInfoCard', function() {
     return {
         templateUrl: "droidInfoCard.html",
@@ -78,16 +104,6 @@ angular.module('app').directive('droidInfoCard', function() {
         scope: {
             droid: '=',
             initialCollapsed: '@collapsed'
-        },
-        controller: function($scope) {
-            $scope.collapsed = ($scope.initialCollapsed === 'true');
-            $scope.nextState = function() {
-                $scope.droid.level++;
-                $scope.droid.level = $scope.droid.level % 4;
-            };
-            $scope.collapse = function() {
-                $scope.collapsed = !$scope.collapsed;
-            };
         }
     }
 });
@@ -102,16 +118,8 @@ angular.module('app').directive('personInfoCard', function() {
             initialCollapsed: '@collapsed'
         },
         controller: function($scope) {
-            $scope.collapsed = ($scope.initialCollapsed === 'true');
-            $scope.nextState = function() {
-                $scope.person.level++;
-                $scope.person.level = $scope.person.level % 4;
-            };
             $scope.knightMe = function(person) {
                 person.rank = "knight";
-            };
-            $scope.collapse = function() {
-                $scope.collapsed = !$scope.collapsed;
             };
             $scope.removeFriend = function(friend) {
                 var idx = $scope.person.friends.indexOf(friend);
